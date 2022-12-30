@@ -9,6 +9,9 @@ import {
     useCatch,
 } from "@remix-run/react";
 
+//React Hooks
+import { useEffect, useState } from 'react';
+
 //Styles
 import styles from '~/styles/index.css';
 
@@ -53,14 +56,92 @@ export function links(){
 }
 
 export default function root () {
+
+    const stateDefault = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('ShoppingCart')) ?? [] : null;
+
+    const [state, setState] = useState({
+        shoppingCart: stateDefault,
+    });
+
+    useEffect(() => {
+        localStorage.setItem('ShoppingCart', JSON.stringify(state.shoppingCart));
+    }, [state])
+
+    let totalItemsBuy = state.shoppingCart?.length;
+
+    const addShoppingCart = ( buy ) => {
+
+
+        if(state.shoppingCart.find(el => el.id === buy.id)){
+            
+            const newShoppingCart = [...state.shoppingCart];
+            
+            const index = newShoppingCart.findIndex(el => el.id === buy.id);
+
+            newShoppingCart[index].cantidad = buy.cantidad;
+            
+            setState({
+                ...state,
+                shoppingCart: newShoppingCart,
+            });
+
+            return;
+        }
+
+        const newShoppingCart = [...state.shoppingCart, buy];
+
+        setState({
+            ...state,
+            shoppingCart: newShoppingCart,
+        });
+    };
+
+    const updateQuantity = ( { id, quantity } ) => {
+
+        const newShoppingCart = [...state.shoppingCart];
+        const index = newShoppingCart.findIndex(el => el.id === id);
+        newShoppingCart[index].cantidad = quantity;
+        setState({
+            ...state,
+            shoppingCart: newShoppingCart,
+        });
+
+    };
+
+    const deleteItemBuy = ( { id } ) => {
+
+        const newShoppingCart = state.shoppingCart.filter(el => el.id !== id);
+        
+        setState({
+            ...state,
+            shoppingCart: newShoppingCart,
+        });
+    };
+
+    const stateApp = {
+        state,
+        totalItemsBuy,
+    };
+
+    const stateUpdaters = {
+        addShoppingCart,
+        updateQuantity,
+        deleteItemBuy,
+    }
+
   return (
-    <Document>
-        <Outlet/>
+    <Document totalItems={totalItemsBuy} >
+        <Outlet
+        context={{
+            stateApp,
+            stateUpdaters
+        }}
+        />
     </Document>
     )
 }
 
-function Document ( { children } ){
+function Document ( { children, totalItems } ){
     return (
         <html>
             <head>
@@ -68,7 +149,7 @@ function Document ( { children } ){
                 <Links/>
             </head>
             <body>
-                <Header/>
+                <Header totalItems={totalItems} />
                  { children }
                  <Footer/>
                  <Scripts/>

@@ -1,14 +1,10 @@
+//Aplicando Nested Routes
+
 //CSS
 import styles from '~/styles/blog.css';
 
 //Remix React
-import { useLoaderData } from "@remix-run/react";
-
-//Models
-import { getPosts } from "~/models/post.server"
-
-//Components
-import { ListadoPosts } from '~/components/ListadoPosts';
+import { Outlet } from "@remix-run/react";
 
 export function meta(){
   return {
@@ -26,21 +22,12 @@ export function links(){
   ]
 }
 
-
-export async function loader(){
-
-  const posts = await getPosts();
-
-  return posts;
-}
-
 const Blog = () => {
 
-  const posts = useLoaderData();
 
   return (
     <main className="contenedor">
-      <ListadoPosts posts={posts} />
+      <Outlet/>
     </main>
   )
 }

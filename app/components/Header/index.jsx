@@ -7,7 +7,7 @@ import logo from "../../../public/img/logo.svg";
 //Components
 import { Navegacion } from '~/components/Navegacion';
 
-const Header = () => {
+const Header = ( { totalItems } ) => {
 
   return (
     <header className="header">
@@ -17,7 +17,7 @@ const Header = () => {
                     <img className="logo" src={logo} alt="imagen-logo"/>
                 </Link>
             </div>
-            <Navegacion/>
+            <Navegacion totalItems={totalItems} />
         </div>
     </header>
   )

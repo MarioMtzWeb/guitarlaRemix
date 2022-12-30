@@ -65,12 +65,14 @@ const Index = () => {
       <main>
         <ListadoGuitarras
         guitarras={guitarras}
+        limit={3}
         />
       </main>
       <Curso curso={curso.attributes} />
       <section className="contenedor">  
         <ListadoPosts
           posts={posts}
+          limit={3}
         />
       </section>
     </>

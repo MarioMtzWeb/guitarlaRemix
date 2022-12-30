@@ -93,8 +93,11 @@
   }
 
   .header .navegacion {
-    margin-top: 5rem;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5rem;
     gap: 2rem;
   }
   
@@ -114,10 +117,31 @@
     transition: background-color .3s ease;
   }
 
+  .header .navegacion img {
+    width: 3rem;
+  }
+
+  .itemCart {
+    position: relative;
+  }
+
+  .itemCart .totalItems {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: var(--white);
+    color: var(--primary);
+  }
+
   .header .navegacion a:hover,
   .header .isActiveNavLink {
     background-color: var(--primary);
   }
+
 
   /*** Footer ***/
 
@@ -147,12 +171,17 @@
     }
   }
 
+
   .footer .navegacion a,
   .footer .copyright {
     color: var(--white);
     font-size: 2.2rem;
     text-decoration: none;
     font-weight: 700;
+  }
+
+  .footer .navegacion a:last-of-type {
+    display: none;
   }
 
   .footer .copyright {

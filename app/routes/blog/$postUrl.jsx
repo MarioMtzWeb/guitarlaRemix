@@ -1,6 +1,3 @@
-//CSS
-import styles from '~/styles/blog.css';
-
 //Remix - React
 import { useLoaderData } from '@remix-run/react';
 
@@ -40,15 +37,6 @@ return {
 }
 }
 
-export function links(){
-    return [
-        {
-            rel: 'stylesheet',
-            href: styles,
-        }
-    ]
-}
-
 const Post = () => {
 
     const post = useLoaderData();
@@ -56,7 +44,7 @@ const Post = () => {
     const { titulo, contenido, imagen, publishedAt } = post[0].attributes;
 
   return (
-    <article className="contenedor post mt-3">
+    <article className="post mt-3">
         <img src={imagen.data.attributes.formats.small.url} alt={`Imagen blog ${titulo}`} />
         <div className="contenido">
             <h3>{titulo}</h3>
