@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Welcome to Remix!
 
 - [Remix Docs](https://remix.run/docs)
@@ -51,3 +52,6 @@ rm -rf app
 # copy your app over
 cp -R ../my-old-remix-app/app app
 ```
+=======
+# guitarlaRemix
+>>>>>>> 96bc911a3ca57f3a0d018faf57d8b982489aa762
